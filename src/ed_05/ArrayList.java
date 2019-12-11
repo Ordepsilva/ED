@@ -14,14 +14,16 @@ import java.util.Iterator;
  */
 public class ArrayList<T> implements ListADT<T> {
 
-    protected final int DEFAULT_CAPACITY = 100;
+    protected static final int DEFAULT_CAPACITY = 100;
+    private static final int NOT_FOUND = -1;
+    
     protected int rear;
-    private final int NOT_FOUND = -1;
+    
     T[] list;
 
     public ArrayList() {
-        rear = 0;
-        list = (T[]) new Object[DEFAULT_CAPACITY];
+        this.rear = 0;
+        this.list = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int inicialSize) {
@@ -30,13 +32,12 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T removeFirst() throws EmptyCollectionException {
-
-        T result;
+    public T removeFirst() throws EmptyCollectionException {   
         if (isEmpty()) {
             throw new EmptyCollectionException("list");
         }
-        result = list[0];
+ 
+         T  result = list[0];
         rear--;
         for (int i = 0; i < rear; i++) {
             list[i] = list[i + 1];
@@ -52,9 +53,11 @@ public class ArrayList<T> implements ListADT<T> {
         if (isEmpty()) {
             throw new EmptyCollectionException("list");
         }
+        
         rear--;
         result = list[rear];
         list[rear] = null;
+       
         return result;
     }
 
@@ -73,7 +76,9 @@ public class ArrayList<T> implements ListADT<T> {
         for (int i = 0; i < rear; i++) {
             list[i] = list[i + 1];
         }
+        
         list[rear] = null;
+        
         return result;
     }
 
@@ -116,14 +121,12 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public boolean contains(T target) {
-
         return (find(target) != NOT_FOUND);
-
     }
 
     @Override
     public boolean isEmpty() {
-        return (rear == 0);
+        return rear == 0;
     }
 
     @Override
@@ -140,7 +143,7 @@ public class ArrayList<T> implements ListADT<T> {
         String result = "";
 
         for (int scan = 0; scan < rear; scan++) {
-            result = result + list[scan].toString() + "\n";
+            result +=  list[scan].toString() + "\n";
         }
 
         return result;

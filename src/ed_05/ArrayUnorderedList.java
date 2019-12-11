@@ -44,33 +44,38 @@ public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedList
         if (size() == list.length) {
             expandCapacity();
         }
+
         list[rear] = element;
         rear++;
-
     }
 
     @Override
     public void addAfter(T element, T target) {
-         if (size() == list.length)
-         expandCapacity();
+        if (size() == list.length) {
+            expandCapacity();
+        }
 
-      int scan = 0;
-      while (scan < rear && !target.equals(list[scan])) 
-          scan++;
-      
-      if (scan == rear)
-         try {
-             throw new ElementNotFoundException ("list");
-         } catch (ElementNotFoundException ex) {
-             Logger.getLogger(ArrayUnorderedList.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    
-      scan++;
-      for (int scan2=rear; scan2 > scan; scan2--)
-         list[scan2] = list[scan2-1];
+        int scan = 0;
+        while (scan < rear && !target.equals(list[scan])) {
+            scan++;
+        }
 
-      list[scan] = element;
-      rear++;
+        if (scan == rear) {
+            try {
+                throw new ElementNotFoundException("list");
+            } catch (ElementNotFoundException ex) {
+                Logger.getLogger(ArrayUnorderedList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        scan++;
+        
+        for (int scan2 = rear; scan2 > scan; scan2--) {
+            list[scan2] = list[scan2 - 1];
+        }
+
+        list[scan] = element;
+        rear++;
     }
 
 }

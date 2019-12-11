@@ -10,23 +10,21 @@ import java.util.NoSuchElementException;
 
 /**
  *
- * @author pedro
+ * @author Pedro
  */
-public class ArrayIterator<T> implements Iterator {
+public class DoubleIterator<T> implements Iterator {
 
     private int count;
-    private int current;
-    private T[] items;
+    private DoubleNode<T> current;
 
-    public ArrayIterator(T[] collection, int size) {
-        items = collection;
-        count = size;
-        current = 0;
+    public DoubleIterator(int count, DoubleNode<T> current) {
+        this.count = count;
+        this.current = current;
     }
 
     @Override
     public boolean hasNext() {
-        return (current < count);
+        return (current != null);
     }
 
     @Override
@@ -35,8 +33,10 @@ public class ArrayIterator<T> implements Iterator {
             throw new NoSuchElementException();
         }
         
-        current++;
-        return items[current - 1];
+        T result = current.getElem();
+        current = current.getNext();
+        
+        return result;
     }
 
 }
