@@ -7,6 +7,7 @@ package ed_05;
 
 import ed_05.interfaces.ListADT;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -158,4 +159,34 @@ public class ArrayList<T> implements ListADT<T> {
 
         list = larger;
     }
+    
+   
+    public class ArrayIterator<T> implements Iterator {
+
+    private int count;
+    private int current;
+    private T[] items;
+
+    public ArrayIterator(T[] collection, int size) {
+        items = collection;
+        count = size;
+        current = 0;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return (current < count);
+    }
+
+    @Override
+    public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        
+        current++;
+        return items[current - 1];
+    }
 }
+}
+

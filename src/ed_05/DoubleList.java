@@ -82,17 +82,23 @@ public class DoubleList<T> implements ListADT<T> {
 
     @Override
     public T first() throws EmptyCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isEmpty()) {
+            throw new EmptyCollectionException("list");
+        }
+        return front.getElem();
     }
 
     @Override
     public T last() throws EmptyCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isEmpty()) {
+            throw new EmptyCollectionException("list");
+        }
+        return rear.getElem();
     }
 
     @Override
     public boolean contains(T target) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (find(target) != null);
     }
 
     @Override
@@ -131,3 +137,14 @@ public class DoubleList<T> implements ListADT<T> {
 
         return result;
     }
+    
+    public String toString(){
+        String result="";
+        DoubleNode<T> traverse = front;
+        while(traverse != null){
+            result = result + (traverse.getElem()).toString() + "\n";
+            traverse = traverse.getNext();
+        }
+        return result;
+    }
+}
